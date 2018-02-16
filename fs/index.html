@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Setup Water Counter</title>
+    <script src="zepto.min.js"></script>
+</head>
+<body>
+<header class="header">
+    <div class="logo"><a href="http://aredko.ru" class="title">ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ° ÑÑÐµÑÑÐ¸ÐºÐ° Ð²Ð¾Ð´Ñ</a></div>
+</header>
+<section class="main">
+    <section class="main__settings">
+        <form class="main__form" action="">
+            <p>ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ° WiFi</p>
+            <label for="wifi-ssid">WiFi SSID</label>
+            <input type="text" name="wifi-ssid" id="wifi-ssid">
+            <label for="wifi-pass">WiFi PASS</label>
+            <input type="text" name="wifi-pass" id="wifi-pass">
+        </form>
+    </section>
+    <section class="main__settings">
+        <form class="main__form" action="">
+            <p>ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ° MQTT Cayenne</p>
+            <label for="mqtt-user">MQTT USER</label>
+            <input type="text" name="mqtt-user" id="mqtt-user">
+            <label for="mqtt-pass">MQTT PASS</label>
+            <input type="text" name="mqtt-pass" id="mqtt-pass">
+            <label for="mqtt-clid">CLIENT ID</label>
+            <input type="text" name="mqtt-clid" id="mqtt-clid">
+            <label for="mqtt-server">SERVER</label>
+            <input type="text" name="mqtt-server" id="mqtt-server">
+            <label for="mqtt-port">PORT</label>
+            <input type="text" name="mqtt-port" id="mqtt-port">
+        </form>
+    </section>
+    <section class="main__settings">
+        <form class="main__form" action="">
+            <p>ÐÐ¾ÐºÐ°Ð·Ð°Ð½Ð¸Ñ ÑÑÑÑÑÐ¸ÐºÐ¾Ð²</p>
+            <label for="wc-could">Ð¥Ð¾Ð»Ð¾Ð´Ð½Ð°Ñ Ð²Ð¾Ð´Ð°</label>
+            <input type="text" name="wc-could" id="wc-could">
+            <label for="wc-hot">ÐÐ¾ÑÑÑÐ°Ñ Ð²Ð¾Ð´Ð°</label>
+            <input type="text" name="wc-hot" id="wc-hot">
+        </form>
+    </section>
+    <section class="main__button">
+        <button class="button" id="reboot">Reboot</button>
+        <button class="button" id="save">Save</button>
+    </section>
+</section>
+</body>
+</html>
+<script>
+    $.ajax({
+        url: '/rpc/Config.Get',
+        success: function(data) {
+            $('#wifi-ssid').val(data.wifi.sta.ssid);
+            $('#wifi-pass').val(data.wifi.sta.pass);
+            $('#mqtt-user').val(data.mqtt.user);
+            $('#mqtt-pass').val(data.mqtt.pass);
+            $('#mqtt-clid').val(data.mqtt.clientid);
+            $('#mqtt-server').val(data.mqtt.server);
+            $('#wc-could').val(data.counter.could);
+            $('#wc-hot').val(data.counter.hot);
+        },
+    });
+</script>

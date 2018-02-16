@@ -1,1 +1,0 @@
-mos --esp-baud-rate=57600 flash

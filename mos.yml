@@ -27,8 +27,8 @@ filesystem:
 
 config_schema:
   - ["counter", "o", {title: "start value of counters"}]
-  - ["counter.could", "d", 258.45, {title: "could water"}]
-  - ["counter.hot", "d", 134.98, {title: "hot water"}]
+  - ["counter.could", "d", 99.98, {title: "could water"}]
+  - ["counter.hot", "d", 199.98, {title: "hot water"}]
 
 # These settings get compiled into the C structure, and can be accessed
 # from the C code this way:
@@ -54,6 +54,7 @@ libs:
   - origin: https://github.com/mongoose-os-libs/rpc-service-config
   - origin: https://github.com/mongoose-os-libs/rpc-service-fs
   - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/wifi
   - origin: https://github.com/mongoose-os-libs/mqtt
   - origin: https://github.com/mongoose-os-libs/mjs
 

@@ -5,6 +5,7 @@
     <title>Настройка</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="zepto.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -46,4 +47,44 @@
     <footer class="footer">copyright&copy; Alex 'killdom' Redko</footer>
 </div>
 </body>
+<script type="text/javascript">
+$.ajax({
+    url: '/rpc/Config.Get',
+    success: function(data) {
+      log('Result: ' + JSON.stringify(data));
+      $('#id_wifi_ssid').val(data.wifi.sta.ssid);
+      $('#id_wifi_pass').val(data.wifi.sta.pass);
+      $('#id_counter_could').val(counter.could);
+      $('#id_counter_hot').val(counter.hot);
+    },
+  });
+
+$('#set_wifi_button').on('click', function() {
+    log('Calling /rpc/Config.Set  ...');
+    $.ajax({
+      url: '/rpc/Config.Set',
+      data: JSON.stringify({config: {wifi: {sta: {enable: true, ssid: $('#id_wifi_ssid').val(), pass: $('#id_wifi_pass').val()}}}}),
+      type: 'POST',
+      // contentType: 'application/json',
+      success: function(data) {
+        log('Success. Saving and rebooting ...');
+        $.ajax({url: '/rpc/Config.Save', type: 'POST', data: JSON.stringify({"reboot": true})});
+      },
+    })
+  });
+
+$('#set_counter_button').on('click', function() {
+    log('Calling /rpc/Config.Set  ...');
+    $.ajax({
+      url: '/rpc/Config.Set',
+      data: JSON.stringify({config: {counter: {could: $('#id_counter_could').val(), hot: $('#id_counter_hot').val()}}}),
+      type: 'POST',
+      // contentType: 'application/json',
+      success: function(data) {
+        log('Success. Saving and rebooting ...');
+        $.ajax({url: '/rpc/Config.Save', type: 'POST', data: JSON.stringify({"reboot": true})});
+      },
+    })
+  });
+</script>
 </html>
